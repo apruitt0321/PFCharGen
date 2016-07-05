@@ -1,6 +1,7 @@
 # An automated character sheet for Pathfinder. Goals include automatic fill-in for stats, roll generation,
 # and automatic class-specific skill attribution.
 
+#added to test git config
 
 import sqlite3
 conn = sqlite3.connect('example.db')
