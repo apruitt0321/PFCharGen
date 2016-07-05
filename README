@@ -1,0 +1,7 @@
+Automated characer sheet for Pathfinder written in Python. 
+
+Goals are to include auto-filling of fields (skills, attributes, and combat 
+stats), quick and easy access to spell lists, and class-based skill generation.
+
+Despite the name, is not focusing on Dungeons&Dragons character generation, but 
+rather solely on Pathfinder. 
