@@ -10,7 +10,6 @@ c = conn.cursor()
 def check_spell_table():
     try:
         c.execute("CREATE TABLE spells (spellname, spelleffect, range, duration)")
-        #c.execute("INSERT INTO spells VALUES ('Magic Missle', 'Kills enemy dead', '30ft', 'Instant')")
         conn.commit()
         return True
     except:
@@ -19,7 +18,7 @@ def check_spell_table():
 # Checks if a character list table is already available.
 def check_char_table():
     try:
-        c.execute("CREATE TABLE characters (name, level, class, race)")
+        c.execute("CREATE TABLE characters (charname, race, class, level)")
         conn.commit()
         return True
     except:
@@ -37,13 +36,24 @@ if check_char_table() == False:
 else:
     print "Created character list table!"
 
-# Function to add a new character to the table of characters
+# Function to add a new character to the table of characters.
 def new_char():
-    nm = str(raw_input("What is the name of your new character?\n"))
+    nm =str(raw_input("What is the name of your new character?\n"))
     lvl = str(raw_input("What level is your new character?\n"))
     cls = str(raw_input("What class is your new character?\n"))
     rc = str(raw_input("What race is your new character?\n"))
-    c.execute("INSERT INTO characters VALUES ('nm', 'lvl', 'cls', 'rc')")
+    chtup = (nm, rc, cls, lvl)
+    c.execute("INSERT INTO characters VALUES (?,?,?,?)", chtup)
+    conn.commit()
+
+# Function to add a new spell.
+def new_spell():
+    spnm = str(raw_input("What is the name of the new spell?\n"))
+    spdis = str(raw_input("What does the spell do?\n"))
+    sprng = str(raw_input("What is the range of the spell?\n"))
+    spdur = str(raw_input("What is the spell duration?\n"))
+    sptup = (spnm, spdis, sprng, spdur)
+    c.execute("INSERT INTO spells VALUES (?,?,?,?)", sptup)
     conn.commit()
 
 char_run = True
@@ -52,22 +62,39 @@ while char_run:
     print "Hello and Welcome!\n"
     print "What would you like to do?\n"
     print "Enter 'q' to quit."
-    print "Enter 'a' to add a new character."
-    print "Enter 'v' to view all characters."
+    print "Enter 'as' to create a new spell."
+    print "Enter 'vs' to view spells."
+    print "Enter 'ac' to add a new character."
+    print "Enter 'vc' to view all characters."
     usrinpt = raw_input("Please enter a command: ")
     if usrinpt == 'q':
         char_run = False
-    elif usrinpt == 'a':
+    elif usrinpt == 'ac':
         new_char()
-    elif usrinpt == 'v':
-        # Does not display information correctly. 
-        t = ('1',)
+    elif usrinpt == 'vs':
+        m = raw_input("What is the range of the spells you want to view?")
+        t = (m,)
+        c.execute('SELECT * FROM spells WHERE range=?', t)
+        r = c.fetchall()
+        for i in r:
+            print "\n----------"
+            for x in i:
+                print x
+            print "----------\n"
+    elif usrinpt == 'vc':
+        m = raw_input("What level are the characters you want to view?")
+        t = (m,)
         c.execute('SELECT * FROM characters WHERE level=?', t)
         #r = c.fetchone()
         r= c.fetchall()
         #print r[0]
         for i in r:
-            print i
+            print "\n----------"
+            for x in i:
+                print x
+            print "----------\n"
+    elif usrinpt == 'as':
+        new_spell()
     else:
         print "Sorry, that is not valid input."
     #debugging prompt
