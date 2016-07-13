@@ -4,7 +4,7 @@ conn = sqlite3.connect('example.db')
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
-#Defines the class Item
+##Defines the class Item
 class Player(object):
     
     def __init__(self, name):
