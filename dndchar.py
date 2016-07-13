@@ -2,6 +2,7 @@
 # and automatic class-specific skill attribution.
 
 import sqlite3
+
 conn = sqlite3.connect('example.db')
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
@@ -25,16 +26,18 @@ def check_char_table():
         return False
 
 # Debugging condition for spell list.
-if check_spell_table() == False:
-    print "Spell list table already created!"
-else:
-    print "Created spell list table!"
+def spell_table_init():
+    if check_spell_table() == False:
+        print "Spell list table already created!"
+    else:
+        print "Created spell list table!"
 
 # Debugging condition for character list.
-if check_char_table() == False:
-    print "Character list table already created!"
-else:
-    print "Created character list table!"
+def char_table_init():
+    if check_char_table() == False:
+        print "Character list table already created!"
+    else:
+        print "Created character list table!"
 
 # Function to add a new character to the table of characters.
 def new_char():
@@ -56,47 +59,28 @@ def new_spell():
     c.execute("INSERT INTO spells VALUES (?,?,?,?)", sptup)
     conn.commit()
 
-char_run = True
+# Function to select a character to view.
+def view_char():
+    m = raw_input("What level are the characters you want to view?\n")
+    t = (m,)
+    c.execute('SELECT * FROM characters WHERE level=?', t)
+    #r = c.fetchone()
+    r= c.fetchall()
+    #print r[0]
+    for i in r:
+        print "\n----------"
+        for x in i:
+            print x
+        print "----------\n"
 
-while char_run:
-    print "Hello and Welcome!\n"
-    print "What would you like to do?\n"
-    print "Enter 'q' to quit."
-    print "Enter 'as' to create a new spell."
-    print "Enter 'vs' to view spells."
-    print "Enter 'ac' to add a new character."
-    print "Enter 'vc' to view all characters."
-    usrinpt = raw_input("Please enter a command: ")
-    if usrinpt == 'q':
-        char_run = False
-    elif usrinpt == 'ac':
-        new_char()
-    elif usrinpt == 'vs':
-        m = raw_input("What is the range of the spells you want to view?")
-        t = (m,)
-        c.execute('SELECT * FROM spells WHERE range=?', t)
-        r = c.fetchall()
-        for i in r:
-            print "\n----------"
-            for x in i:
-                print x
-            print "----------\n"
-    elif usrinpt == 'vc':
-        m = raw_input("What level are the characters you want to view?")
-        t = (m,)
-        c.execute('SELECT * FROM characters WHERE level=?', t)
-        #r = c.fetchone()
-        r= c.fetchall()
-        #print r[0]
-        for i in r:
-            print "\n----------"
-            for x in i:
-                print x
-            print "----------\n"
-    elif usrinpt == 'as':
-        new_spell()
-    else:
-        print "Sorry, that is not valid input."
-    #debugging prompt
-    print "\n----End of loop----\n"
-
+# Function to select a spell to view.
+def view_spell():
+    m = raw_input("What is the range of the spells you want to view?\n")
+    t = (m,)
+    c.execute('SELECT * FROM spells WHERE range=?', t)
+    r = c.fetchall()
+    for i in r:
+        print "\n----------"
+        for x in i:
+            print x
+        print "----------\n"
