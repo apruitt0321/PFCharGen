@@ -2,6 +2,7 @@
 # and automatic class-specific skill attribution.
 
 import sqlite3
+import char_class
 
 conn = sqlite3.connect('example.db')
 conn.row_factory = sqlite3.Row
@@ -61,17 +62,19 @@ def new_spell():
 
 # Function to select a character to view.
 def view_char():
-    m = raw_input("What level are the characters you want to view?\n")
-    t = (m,)
-    c.execute('SELECT * FROM characters WHERE level=?', t)
-    #r = c.fetchone()
-    r= c.fetchall()
-    #print r[0]
-    for i in r:
-        print "\n----------"
-        for x in i:
-            print x
-        print "----------\n"
+    m = raw_input("Which character do you want to view?\n")
+    #t = (m,)
+    #c.execute('SELECT * FROM characters WHERE level=?', t)
+    plch = char_class.Player(m)
+    print plch.__str__()
+    ##r = c.fetchone()
+    #r= c.fetchall()
+    ##print r[0]
+    #for i in r:
+      #  print "\n----------"
+       # for x in i:
+        #    print x
+        #print "----------\n"
 
 # Function to select a spell to view.
 def view_spell():
