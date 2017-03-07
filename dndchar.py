@@ -3,6 +3,7 @@
 
 import sqlite3
 import char_class
+import npyscreen
 
 conn = sqlite3.connect('pfcs.db')
 conn.row_factory = sqlite3.Row
@@ -116,3 +117,12 @@ def view_spell():
         for x in i:
             print x
         print "----------\n"
+
+# Function to roll dice
+def roll_dice(self,x,y):
+    i = 0
+    s = []
+    while i < x:
+        s.append(random.randint(1,y))
+        i += 1
+    return s
