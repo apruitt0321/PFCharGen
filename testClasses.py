@@ -1,4 +1,5 @@
 import sqlite3
+import interface
 
 conn = sqlite3.connect('pfcs.db')
 conn.row_factory = sqlite3.Row
@@ -26,6 +27,21 @@ class Player(object):
         self.lvl =str(input("What level is your new character?\n"))
         self.clss =str(input("What class is your new character?\n"))
         self.race =str(input("What race is your new character?\n"))
+        tttt = (self.name, self.race, self.clss, self.lvl)
+        c.execute("INSERT INTO PC"+str(self.id)+" VALUES (?,?,?,?)", tttt)
+        conn.commit()
+
+    def newCharForm(self):
+        newChar = interface.TestApp()
+        newChar.run()
+        self.name = newChar.getName()
+        self.lvl = newChar.getLevel()
+        self.race = newChar.getRace()
+        self.clss = newChar.getClass()
+        t = (self.id, self.name)
+        c.execute("INSERT INTO characters VALUES (?,?)", t)
+        c.execute("CREATE TABLE PC"+str(self.id)+" (name, race, class, level)")
+        print("Table created for PC"+str(self.id)+": "+self.name+"!")
         tttt = (self.name, self.race, self.clss, self.lvl)
         c.execute("INSERT INTO PC"+str(self.id)+" VALUES (?,?,?,?)", tttt)
         conn.commit()

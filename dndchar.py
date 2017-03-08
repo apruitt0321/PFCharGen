@@ -4,6 +4,7 @@
 import sqlite3
 import testClasses
 import npyscreen
+#import interface
 
 conn = sqlite3.connect('pfcs.db')
 conn.row_factory = sqlite3.Row
@@ -71,14 +72,14 @@ def new_char():
             rec_new_char()
             break
         elif inpt == 'g':
-            rec_new_char()
+            gen_new_char()
             break
         else:
             print("That is not valid input.")
 
 def rec_new_char():
     plch = testClasses.Player(char_count)
-    plch.new_char()
+    plch.newCharForm()
 
 def gen_new_char():
     plch = testClasses.Player(char_count)
