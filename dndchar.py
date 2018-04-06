@@ -134,3 +134,4 @@ def roll_dice(self,x,y):
         s.append(random.randint(1,y))
         i += 1
     return s
+    #need to import random
