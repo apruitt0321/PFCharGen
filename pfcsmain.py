@@ -7,14 +7,14 @@ dndchar.attr_table_init()
 char_run = True
 
 while char_run:
-    print "\n----------\nHello and Welcome!"
-    print "Enter 'q' to quit."
-    print "Enter 'as' to create a new spell."
-    print "Enter 'vs' to view spells."
-    print "Enter 'ac' to add a new character."
-    print "Enter 'vcl' to view all characters."
-    print "Enter 'vc' to view a specific character."
-    usrinpt = raw_input("\nPlease enter a command: ")
+    print("\n----------\nHello and Welcome!")
+    print("Enter 'q' to quit.")
+    print("Enter 'as' to create a new spell.")
+    print("Enter 'vs' to view spells.")
+    print("Enter 'ac' to add a new character.")
+    print("Enter 'vcl' to view all characters.")
+    print("Enter 'vc' to view a specific character.")
+    usrinpt = input("\nPlease enter a command: ")
     if usrinpt == 'q':
         char_run = False
     elif usrinpt == 'ac':
@@ -28,7 +28,6 @@ while char_run:
     elif usrinpt == 'as':
         dndchar.new_spell()
     else:
-        print "Sorry, that is not valid input."
+        print("Sorry, that is not valid input.")
     #debugging prompt
-    print "\n----End of loop----\n"
-
+    print("\n----End of loop----\n")
